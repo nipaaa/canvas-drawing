@@ -1,4 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Dropdown } from "react-bootstrap";
+import doll from "../assets/doll.jpg";
+import doll2 from "../assets/doll2.jpg";
+import doll3 from "../assets/doll3.jpg";
+import doll4 from "../assets/doll4.jpg";
+import hand from "../assets/hand.jpg";
 
 const Canvas = () => {
   const [isDrawing, setIsDrawing] = useState(false);
@@ -99,6 +105,24 @@ const Canvas = () => {
     link.setAttribute("href", image);
   };
 
+  const images = [
+    {
+      pic: doll,
+    },
+    {
+      pic: doll2,
+    },
+    {
+      pic: doll3,
+    },
+    {
+      pic: doll4,
+    },
+    {
+      pic: hand,
+    },
+  ];
+
   return (
     <>
       <h1 className="heading">Draw Your Thinking</h1>
@@ -137,6 +161,22 @@ const Canvas = () => {
             Erase
           </button>
         </div>
+        <div>
+          <Dropdown className="d-inline">
+            <Dropdown.Toggle id="dropdown-autoclose-true">
+              Image
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu className="p-0">
+              {images.map((photo, index) => (
+                <Dropdown.Item className="p-0 m-0" key={index} href="#">
+                  <img width={100} height={100} src={photo.pic} alt="" />
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+
         <a
           id="download"
           href="download_link"
@@ -147,7 +187,7 @@ const Canvas = () => {
         </a>
       </div>
       <canvas
-        style={{ cursor: cursor }}
+        style={{ cursor: "cursor", overflow: "hidden" }}
         onMouseDown={startPosition}
         onMouseUp={finishedPosition}
         onMouseMove={draw}

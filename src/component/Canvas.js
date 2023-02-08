@@ -92,12 +92,12 @@ const Canvas = () => {
       return;
     }
   };
-  const downloadImage = (event) =>{
-let link = event.currentTarget;
-link.setAttribute("download","canvas.png");
-let image = canvasRef.current.toDataURL("image/png");
-link.setAttribute("href",image)
-  }
+  const downloadImage = (event) => {
+    let link = event.currentTarget;
+    link.setAttribute("download", "canvas.png");
+    let image = canvasRef.current.toDataURL("image/png");
+    link.setAttribute("href", image);
+  };
 
   return (
     <>
@@ -136,7 +136,12 @@ link.setAttribute("href",image)
             Erase
           </button>
         </div>
-        <a id="download" href="download_link" onClick={downloadImage} className="btn-width">
+        <a
+          id="download"
+          href="download_link"
+          onClick={downloadImage}
+          className="btn-width"
+        >
           Download
         </a>
       </div>

@@ -101,6 +101,7 @@ const Canvas = () => {
 
   return (
     <>
+      <h1 className="heading">Draw Your Thinking</h1>
       <div className="canvas-btn">
         <button onClick={getPen} className="btn-width">
           Pencil

@@ -1,3 +1,14 @@
+
+.heading{
+    position: absolute;
+    color: red;
+    left: 50%;
+    transform: translateX(-50%);
+
+}
+
+
+
 #circularcursor {
     background-color: transparent;
     border:1px solid black;    

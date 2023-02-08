@@ -92,6 +92,12 @@ const Canvas = () => {
       return;
     }
   };
+  const downloadImage = (event) =>{
+let link = event.currentTarget;
+link.setAttribute("download","canvas.png");
+let image = canvasRef.current.toDataURL("image/png");
+link.setAttribute("href",image)
+  }
 
   return (
     <>
@@ -127,9 +133,12 @@ const Canvas = () => {
         </button>
         <div>
           <button onClick={eraseCanvas} className="btn-width">
-            Eras
+            Erase
           </button>
         </div>
+        <a id="download" href="download_link" onClick={downloadImage} className="btn-width">
+          Download
+        </a>
       </div>
       <canvas
         style={{ cursor: cursor }}

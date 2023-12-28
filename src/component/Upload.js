@@ -138,7 +138,7 @@ const Canvas = () => {
 
   return (
     <div
-      style={{ height: "100vh" }}
+      style={{ height: "90vh" }}
       className="d-flex flex-column justify-content-center"
     >
       <p className="text-center text-primary">

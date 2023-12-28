@@ -17,7 +17,7 @@ const Canvas = () => {
 
     //Resizing
     canvas.height = 100;
-    canvas.width = 350;
+    canvas.width = 300;
 
     //Load from locastorage
     const canvasimg = localStorage.getItem("canvasimg");

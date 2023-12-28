@@ -30,20 +30,25 @@ const Canvas = () => {
     }
   }, [ctx]);
 
-  const startPosition = ({ nativeEvent }) => {
+  const startPosition = (event) => {
     setIsDrawing(true);
-    draw(nativeEvent);
+    draw(event);
   };
 
-  const finishedPosition = () => {
+  const movePosition = (event) => {
+    if (isDrawing) {
+      draw(event);
+    }
+  };
+
+  const endPosition = () => {
     setIsDrawing(false);
     ctx.current.beginPath();
   };
 
-  const draw = ({ nativeEvent }) => {
-    if (!isDrawing) {
-      return;
-    }
+  const draw = (event) => {
+    const clientX = event.type.startsWith("touch") ? event.touches[0].clientX : event.clientX;
+    const clientY = event.type.startsWith("touch") ? event.touches[0].clientY : event.clientY;
 
     const canvas = canvasRef.current;
     ctx.current = canvas.getContext("2d");
@@ -51,9 +56,9 @@ const Canvas = () => {
     ctx.current.lineCap = "round";
     ctx.current.strokeStyle = color;
 
-    const rect = canvas.getBoundingClientRect(); // Get the dimensions and position of the canvas
-    const x = nativeEvent.clientX - rect.left; // Adjust X coordinate based on canvas position
-    const y = nativeEvent.clientY - rect.top; // Adjust Y coordinate based on canvas position
+    const rect = canvas.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
 
     ctx.current.lineTo(x, y);
     ctx.current.stroke();
@@ -74,7 +79,6 @@ const Canvas = () => {
     context.fillStyle = "white";
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    //Passing clear screen
     if (timeout.current !== undefined) clearTimeout(timeout.current);
     timeout.current = setTimeout(function () {
       var base64ImageData = canvas.toDataURL("image/png");
@@ -97,6 +101,7 @@ const Canvas = () => {
       return;
     }
   };
+
   const downloadImage = (event) => {
     let link = event.currentTarget;
     link.setAttribute("download", "canvas.png");
@@ -116,7 +121,6 @@ const Canvas = () => {
         formData
       );
 
-      // Handle the response from ImageBB
       if (response.data && response.data.data && response.data.data.url) {
         alert(
           "Image uploaded to ImageBB!\nImage URL: " + response.data.data.url
@@ -155,9 +159,12 @@ const Canvas = () => {
               overflow: "hidden",
               border: "1px solid red",
             }}
+            onTouchStart={startPosition}
+            onTouchMove={movePosition}
+            onTouchEnd={endPosition}
             onMouseDown={startPosition}
-            onMouseUp={finishedPosition}
-            onMouseMove={draw}
+            onMouseMove={movePosition}
+            onMouseUp={endPosition}
             ref={canvasRef}
           />
         </div>

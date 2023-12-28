@@ -15,11 +15,9 @@ const Canvas = () => {
     const canvas = canvasRef.current;
     ctx.current = canvas.getContext("2d");
 
-    //Resizing
     canvas.height = 100;
     canvas.width = 300;
 
-    //Load from locastorage
     const canvasimg = localStorage.getItem("canvasimg");
     if (canvasimg) {
       var image = new Image();
